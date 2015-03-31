@@ -36,8 +36,9 @@ For more reasoning behind it and history of the project see: [esformatter
 
 ## How?
 
-This tool uses [rocambole](https://github.com/millermedeiros/rocambole) (based
-on Esprima) to recursively parse the tokens and transform it *in place*.
+This tool uses [rocambole](https://github.com/millermedeiros/rocambole) and
+[espree](https://github.com/eslint/espree) to recursively parse the tokens and
+transform it *in place*.
 
 
 
@@ -157,6 +158,27 @@ esformatter.unregister(pluginObject);
 Remove all the registered plugins from the execution queue; useful in case you
 want to edit multiple files using different plugins each time.
 
+
+### Custom Parser
+
+Since v0.7 we started to use [espree](https://github.com/eslint/espree) because
+it supports ES6 and JSX syntax and produces an AST that is similar to
+[esprima](http://esprima.org). To override the parser you can do:
+
+```js
+var esprima = require('esprima');
+// function used by `rocambole` to parse the program
+esformatter.parseFn = esprima.parse;
+// the `this` value inside the `parseFn`
+esformatter.parseContext = esprima;
+// options passed to the parser
+esformatter.parseOptions = {
+    // we need range, comment and tokens info to build the rocambole AST
+    range: true,
+    tokens: true,
+    comment: true
+};
+```
 
 
 ## CLI
