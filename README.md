@@ -131,6 +131,38 @@ var override = esformatter.rc({
 });
 ```
 
+### esformatter.check
+
+esformatter is also able to check if files are formatted properly and return
+pretty diffs.
+
+These methods will return an empty string if input is already in the proper
+format.
+
+#### esformatter.check.chars(str[, opts, fileName]):String
+
+```js
+// outputs a colorized char diff
+var diff = esformatter.check.chars(code);
+console.log(diff);
+```
+
+#### esformatter.check.unified(str[, opts, fileName]):String
+
+```js
+// outputs a colored unified diff
+var diff = esformatter.check.unified(code);
+console.log(diff);
+```
+
+#### esformatter.check.unifiedNoColors(str[, opts, fileName]):String
+
+```js
+// outputs a unified diff
+var diff = esformatter.check.unifiedNoColors(code);
+console.log(diff);
+```
+
 ### esformatter.register(plugin)
 
 Register a [plugin](#plugins) module.
